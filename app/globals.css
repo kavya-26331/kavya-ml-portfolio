@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 11 16 32; --panel: 18 26 46; --line: 36 48 77; --text: 230 234 245;
+  --mute: 148 160 190; --sig: 79 209 255; --amb: 255 181 71;
+}
+:root[data-theme="light"] {
+  --bg: 246 247 251; --panel: 255 255 255; --line: 218 223 236; --text: 16 22 40;
+  --mute: 90 100 128; --sig: 0 122 170; --amb: 196 108 0;
+}
+html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+body { @apply bg-bg text-ink font-sans antialiased; transition: background-color .3s, color .3s; }
+::selection { background: rgb(var(--sig) / .3); }
+:focus-visible { outline: 2px solid rgb(var(--sig)); outline-offset: 3px; border-radius: 6px; }
+
+.draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.2s cubic-bezier(.6,0,.2,1) .2s forwards; }
+.later { opacity: 0; animation: fade 1s ease 2s forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes fade { to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .draw { animation: none; stroke-dashoffset: 0; }
+  .later { animation: none; opacity: 1; }
+  html { scroll-behavior: auto; }
+  * { transition-duration: 0s !important; }
+}
